@@ -38,32 +38,25 @@
 
 <template>
   <main>
-    <header>
-      <h1 class="logo">Secret App</h1>
-      <h2>Register</h2>
-      <p>Create an account to start using the super secret app</p>
-    </header>
-
-    <form @submit.prevent="register">
-      <label>
-        <span>Enter email</span>
-        <input type="email" v-model="email" placeholder="your_email@mail.com">
-      </label>
-      <label>
-        <span>Enter password</span>
-        <input type="password" v-model="password" placeholder="Your_PW123!">
-      </label>
-      <label>
-        <span>Confirm password</span>
-        <input type="password" v-model="passwordConfirmation" placeholder="Your_PW123!">
-      </label>
-
-      <input type="submit" value="Register">
-
-    </form>
-    <footer>
-      <p>Already have an account? <router-link to="/login">Login</router-link></p>
-    </footer>
+    <section>
+      <p>Register</p>
+      <form @submit.prevent="register">
+        <label>
+          <input type="email" v-model="email" placeholder="Email">
+        </label>
+        <label>
+          <input type="password" v-model="password" placeholder="Password">
+        </label>
+        <label>
+          <input type="password" v-model="passwordConfirmation" placeholder="Password confirmation">
+        </label>
+        <input type="submit" value="Register" @keyup.enter="register">
+        <div>
+          <span>Already have an account?</span>
+          <router-link to="/login">Login</router-link>
+        </div>
+      </form>
+    </section>
   </main>
 </template>
 
@@ -71,45 +64,46 @@
 main {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
   height: 100vh;
-  background-color: var(--primary);
+  background-color: var(--primary-dark);
   color: #FFF;
 }
 
-header {
-  padding: 1.5rem;
+p {
+  font-size: 1.625rem;
+  font-weight: bold;
+  padding: 1.5rem 0 .525rem 1.5rem;
+  color: var(--gray-dark);
 }
 
-footer {
+section {
+  width: 380px;
+  border-radius: .625rem;
   background-color: #FFF;
-  width: 100%;
-  color: var(--dark);
-  text-align: center;
-  padding: 1.5rem;
-  padding-bottom: 3rem;
-}
-
-h2 {
-  font-size: 2.125rem;
-  margin-bottom: 1rem;
-}
-
-h2~p {
-  font-weight: 500;
-  font-size: 1rem;
+  padding: .625rem .2rem;
 }
 
 form {
-  flex: 1 1 0%;
-  display: block;
-  border-radius: 1.5rem 1.5rem 0 0;
-  background-color: #FFF;
-  box-shadow: 0px -4px 12px 4px rgba(0, 0, 0, 0.16);
-  color: var(--dark);
-  padding: 4rem 1.5rem;
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  max-height: 450px;
+  color: var(--dark);
+  padding: 1rem 1.5rem;
+}
+
+form>div {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+  color: var(--primary);
+}
+
+form>div>span {
+  color: var(--gray-dark);
+  padding-right: .4rem;
 }
 
 label {
@@ -130,32 +124,27 @@ input:not([type="submit"]) {
   display: block;
   background-color: var(--light);
   border-radius: .5rem;
-  padding: 1.5rem 1rem;
+  padding: 1rem 1rem;
   font-size: 1rem;
   font-weight: 500;
   color: var(--dark);
 }
 
-input:not([type="submit"])::palceholder {
-  font-style: italic;
-  color: var(--gray);
-}
-
 input[type="submit"] {
   display: block;
-  width: fit-content;
+  background-color: var(--secondary);
+  border-radius: .625rem;
+  width: 100%;
   margin: 0 auto;
-  font-size: 1.5rem;
-  font-weight: 700;
+  padding: .85rem;
+  font-size: 1.25rem;
+  font-weight: 600;
   color: #FFF;
-  background-color: var(--primary);
-  padding: 1rem;
-  border-radius: 0.5rem;
   cursor: pointer;
   transition: 0.2s ease;
 }
 
 input[type="submit"]:hover {
-  background-color: var(--primary-dark);
+  background-color: var(--secondary-dark);
 }
 </style>

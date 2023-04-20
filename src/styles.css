@@ -1,7 +1,10 @@
 :root {
-  --primary: #e11d48;
-  --primary-dark: #c32345;
+  --primary: #203e4f;
+  --primary-dark: #142935;
+  --secondary: #11c1a1;
+  --secondary-dark: #157058;
   --gray: #9ca3af;
+  --gray-dark: #3e4042;
   --light: #f3f4f6;
   --dark: #111827;
 }
@@ -18,16 +21,4 @@ input {
   outline: none;
   border: none;
   background: none;
-}
-
-.logo {
-  display: inline-block;
-  font-size: 1rem;
-  font-weight: 900;
-  letter-spacing: 5px;
-  padding: 0.5rem;
-  padding-right: calc(0.5rem -5px);
-  border: 2px solid #fff;
-  color: #fff;
-  margin-bottom: 1.5rem;
 }

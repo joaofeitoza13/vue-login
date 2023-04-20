@@ -36,7 +36,7 @@ app.post('/register', async (req, res) => {
     res.json({
       success: false,
       message: err.error_message,
-      err: err,
+      err,
     })
   }
 })
@@ -59,7 +59,7 @@ app.post('/login', async (req, res) => {
     res.json({
       success: false,
       message: err.error_message,
-      err: err,
+      err,
     })
   }
 })
@@ -77,7 +77,7 @@ app.post('/authenticate', async (req, res) => {
     res.json({
       success: false,
       message: err.error_message,
-      err: err,
+      err,
     })
   }
 })
@@ -95,7 +95,7 @@ app.post('/logout', async (req, res) => {
     res.json({
       success: false,
       message: err.error_message,
-      err: err,
+      err,
     })
   }
 })
