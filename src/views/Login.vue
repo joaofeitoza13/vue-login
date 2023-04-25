@@ -11,7 +11,7 @@
     if (!email.value || !password.value) {
       return alert('Please, fill in all fields.')
     }
-    const res = await fetch('http://localhost:3333/login', {
+    const res = await fetch('http://localhost:3003/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router';
 const router = useRouter()
 
 const logout = async () => {
-  const res = await fetch('http://localhost:3333/logout', {
+  const res = await fetch('http://localhost:3003/logout', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -31,7 +31,8 @@ const logout = async () => {
         <p>You successfully logged in, but...</p>
         <p>there is nothing to do here... yet :)</p>
         <p class="disclaimer">
-          When you finish admiring this amazing design, please, Logout and free the memory alocated to your token.
+          When you finish admiring this amazing design, please, feel free to logout and release the memory alocated to
+          your session :)
         </p>
       </div>
       <button @click="logout">Logout</button>

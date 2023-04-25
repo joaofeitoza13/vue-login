@@ -15,7 +15,7 @@
     if (password.value != passwordConfirmation.value) {
       return alert('Passwords do not match.')
     }
-    const res = await fetch('http://localhost:3333/register', {
+    const res = await fetch('http://localhost:3003/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

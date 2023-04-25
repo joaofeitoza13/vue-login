@@ -7,6 +7,8 @@ dotenv.config()
 
 const app = express()
 
+const username = 'joaofeitoza13'
+
 const client = new Client({
   project_id: process.env.PROJECT_ID || '',
   secret: process.env.SECRET || '',
@@ -17,6 +19,41 @@ const port = process.env.PORT || 3333
 
 app.use(cors())
 app.use(express.json())
+
+const fetchLanguages = async (user, project) => {
+  const languagesJSON = await fetch(`https://api.github.com/repos/${user}/${project}/languages`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${process.env.GH_TOKEN}`
+    }
+  }).then(res => res.json());
+  return languagesJSON;
+}
+
+app.get('/projects', async (req, res) => {
+  try {
+    const projectsJSON = await fetch(`https://api.github.com/users/${username}/repos`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${process.env.GH_TOKEN}`
+      }
+    }).then(res => res.json());
+    const projectsList = await Promise.all(projectsJSON.map(async project => {
+      return {
+        id: project.id,
+        name: project.name,
+        full_name: project.full_name,
+        description: project.description,
+        languages: await fetchLanguages(username, project.name),
+        private: project.private,
+      };
+    }));
+    res.json({ ...projectsList });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+})
 
 app.post('/register', async (req, res) => {
   const { email, password } = req.body
