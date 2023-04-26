@@ -7,15 +7,14 @@ dotenv.config()
 
 const app = express()
 
-const username = 'joaofeitoza13'
+const port = process.env.PORT || 3333
+const username = process.env.GH_USERNAME
 
 const client = new Client({
   project_id: process.env.PROJECT_ID || '',
   secret: process.env.SECRET || '',
   env: envs.test,
 })
-
-const port = process.env.PORT || 3333
 
 app.use(cors())
 app.use(express.json())
@@ -38,6 +37,7 @@ app.get('/projects', async (req, res) => {
         'Authorization': `Bearer ${process.env.GH_TOKEN}`
       }
     }).then(res => res.json());
+    console.log(projectsJSON)
     const projectsList = await Promise.all(projectsJSON.map(async project => {
       return {
         id: project.id,
@@ -46,6 +46,7 @@ app.get('/projects', async (req, res) => {
         description: project.description,
         languages: await fetchLanguages(username, project.name),
         private: project.private,
+        url: project.html_url
       };
     }));
     res.json({ ...projectsList });
