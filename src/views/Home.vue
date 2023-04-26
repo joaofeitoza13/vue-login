@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
@@ -29,10 +29,13 @@ const logout = async () => {
       <h1>Home page</h1>
       <div>
         <p>You successfully logged in, but...</p>
-        <p>there is nothing to do here... yet :)</p>
+        <p>there is nothing to do here, yet :)</p>
         <p class="disclaimer">
           When you finish admiring this amazing design, please, feel free to logout and release the memory alocated to
           your session :)
+          <br />
+          <br />
+          Or you can access my <router-link to="/projects">projects</router-link>...
         </p>
       </div>
       <button @click="logout">Logout</button>
@@ -57,7 +60,7 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  height: 400px;
+  height: 500px;
   width: 500px;
   border-radius: .5rem;
   background-color: #FFF;

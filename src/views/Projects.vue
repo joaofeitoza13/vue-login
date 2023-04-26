@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 interface Project {
   id: number;
@@ -8,8 +9,11 @@ interface Project {
   description: string;
   languages: Record<string, number>;
   private: boolean;
+  url: string;
 }
 
+
+const router = useRouter()
 const projectList = ref<Project[]>([])
 
 const fetchProjects = async () => {
@@ -20,27 +24,32 @@ const fetchProjects = async () => {
   projectList.value = data;
 }
 
+const backToHome = () => {
+  router.push('/')
+}
 
-
+onBeforeMount(() => {
+  fetchProjects()
+})
 </script>
 
 <template>
   <main>
     <section>
       <header class="projects-header">
-        <h1>Projects page</h1>
-        <button @click=fetchProjects>Fetch</button>
+        <h1>Projects</h1>
+        <button @click=backToHome>Back to home</button>
       </header>
       <section class="projects-content">
         <ul class="projects-list">
           <li class="projects-item" v-for="project in projectList" :key="project.id">
-            <p class="item-name">{{ project.name }}</p>
-            <p class="item-desc">{{ project.description }}</p>
-            <ul class="languages-list">
-              <li class="languages-item" v-for="(langCode, langName) in project.languages" :key="langCode">
+            <ul class="lang-list">
+              <li class="lang-item" v-for="(langCode, langName) in project.languages" :key="langCode">
                 <p>{{ langName }}</p>
               </li>
             </ul>
+            <a class="project-name" :href=project.url target="_blank">{{ project.name }}</a>
+            <p class="project-desc">{{ project.description }}</p>
           </li>
         </ul>
       </section>
@@ -56,7 +65,7 @@ main {
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  height: 100vh;
+  height: 100%;
   background-color: var(--primary-dark);
   color: #FFF;
 }
@@ -85,44 +94,6 @@ h1 {
   line-height: 1.825rem;
 }
 
-p {
-  font-size: 1.15rem;
-  font-weight: bold;
-  color: var(--primary);
-}
-
-label {
-  display: block;
-  margin-bottom: 1.5rem;
-}
-
-label span {
-  display: block;
-  color: var(--gray);
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: .5rem;
-}
-
-button {
-  display: block;
-  width: 100%;
-  background-color: var(--secondary);
-  border: none;
-  border-radius: 0.5rem;
-  margin: 0 auto;
-  padding: .85rem;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #FFF;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-button:hover {
-  background-color: var(--secondary-dark);
-}
-
 .projects-header {
   display: flex;
   justify-content: space-between;
@@ -130,44 +101,77 @@ button:hover {
 
 .projects-header button {
   margin: 0;
-  width: 40%;
+  display: block;
+  background-color: var(--secondary);
+  width: 20%;
+  padding: .85rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #FFF;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.projects-header button:hover {
+  background-color: var(--secondary-dark);
 }
 
 .projects-list {
   display: grid;
-  grid-template-columns: 300px 300px;
-  grid-template-rows: 300px 300px;
-  gap: 1.15rem;
+  grid-template-columns: 300px 300px 300px;
+  grid-template-rows: repeat(3, 200px);
+  gap: .8625rem;
   list-style: none;
 }
 
 .projects-item {
   background-color: var(--primary-dark);
-  border-radius: .3rem;
-  padding: 1rem;
+  border-radius: .525rem;
+  padding: .625rem;
 }
 
-.languages-list {
+.lang-list {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: .2rem;
+  padding: .1rem .1rem .425rem .1rem;
 }
 
-.languages-item {
+.lang-item {
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: var(--gray);
-  min-width: 2rem;
-  padding: .115rem .215rem .1rem .215rem;
+  padding: .115rem .415rem .1rem .415rem;
   border-radius: .45rem;
 }
 
-.languages-item>p {
+.lang-item p {
   display: flex;
   align-items: center;
   height: .825rem;
-  font-size: .5125rem;
+  font-size: .6215rem;
+  font-weight: bold;
+  color: var(--primary);
   text-transform: uppercase;
+}
+
+.projects-item .project-name {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.projects-item .project-name:link {
+  color: var(--light)
+}
+
+.projects-item .project-name:visited {
+  color: var(--grey)
+}
+
+.projects-item .project-desc {
+  padding-top: .3rem;
 }
 </style>
